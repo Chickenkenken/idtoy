@@ -5,29 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camera App</title>
     <style>
-        #imageContainer {
-            display: none;
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
             margin-top: 20px;
         }
 
+        #imageContainer {
+            width: 400px;
+            height: 400px;
+            margin: 10px auto; /* Center the container */
+            overflow: hidden;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
         #capturedImage {
-            max-width: 100%;
+            width: 100%; /* Make the image fill the container */
             height: auto;
+            display: block; /* Remove extra space below inline images */
         }
     </style>
 </head>
 <body>
+
+<!-- Div to display the captured image -->
+<div id="imageContainer">
+    <img id="capturedImage" alt="Captured Image">
+</div>
 
 <!-- Input for opening the camera app -->
 <input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
 
 <!-- Button to trigger the camera input -->
 <button onclick="openCamera()">Open Camera</button>
-
-<!-- Div to display the captured image -->
-<div id="imageContainer">
-    <img id="capturedImage" alt="Captured Image">
-</div>
 
 <script>
     function openCamera() {
@@ -45,9 +63,6 @@
     });
 
     function displayImage(file) {
-        // Display the image container
-        document.getElementById('imageContainer').style.display = 'block';
-
         // Get the image container and captured image elements
         const imageContainer = document.getElementById('imageContainer');
         const capturedImage = document.getElementById('capturedImage');
