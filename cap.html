@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera App</title>
+    <style>
+        #imageContainer {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #capturedImage {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Input for opening the camera app -->
+<input type="file" accept="image/*" capture="camera" id="cameraInput" style="display: none;">
+
+<!-- Button to trigger the camera input -->
+<button onclick="openCamera()">Open Camera</button>
+
+<!-- Div to display the captured image -->
+<div id="imageContainer">
+    <img id="capturedImage" alt="Captured Image">
+</div>
+
+<script>
+    function openCamera() {
+        // Trigger the click event of the hidden camera input
+        document.getElementById('cameraInput').click();
+    }
+
+    // Function to handle the file input change event
+    document.getElementById('cameraInput').addEventListener('change', function(event) {
+        // Get the selected file
+        const selectedFile = event.target.files[0];
+
+        // Display the selected image in the div
+        displayImage(selectedFile);
+    });
+
+    function displayImage(file) {
+        // Display the image container
+        document.getElementById('imageContainer').style.display = 'block';
+
+        // Get the image container and captured image elements
+        const imageContainer = document.getElementById('imageContainer');
+        const capturedImage = document.getElementById('capturedImage');
+
+        // Create a FileReader to read the selected file
+        const reader = new FileReader();
+
+        // Set the onload event handler to display the image when it's loaded
+        reader.onload = function(e) {
+            capturedImage.src = e.target.result;
+        };
+
+        // Read the selected file as a data URL
+        reader.readAsDataURL(file);
+    }
+</script>
+
+</body>
+</html>
