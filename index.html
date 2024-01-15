@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera App</title>
+    <style>
+        /* Your existing CSS styles */
+
+        #uploadButton {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Your existing HTML content -->
+
+<!-- Button to upload the captured image to the server -->
+<button id="uploadButton" onclick="uploadImage()">Upload Image</button>
+
+<script>
+    function uploadImage() {
+        // Get the captured image element
+        const capturedImage = document.getElementById('capturedImage');
+
+        // Get the base64-encoded image data
+        const imageData = capturedImage.src.split(',')[1];
+
+        // Create a FormData object to send data to the server
+        const formData = new FormData();
+        formData.append('imageData', imageData);
+
+        // Use Fetch API to send a POST request to the PHP server
+        fetch('upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+</body>
+</html>
